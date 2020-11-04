@@ -68,11 +68,25 @@ class Player():
     def value(self):
         total = 0
 
+        num_A_encountered = False
+
         for card in self.hand:
             if card.rank.isdigit():
                 total += int(card.rank)
+            elif card.rank == "A":
+                if num_A_encountered:
+                    total += 1
+                else:
+                    num_A_encountered = True
             else:
                 total += 10
+
+        if num_A_encountered:
+            if total + 11 <= 21:
+                total += 11
+            else:
+                total += 1
+                
         return total
 
     def choose_play(self):
@@ -200,8 +214,8 @@ if __name__ == "__main__":
     print()
 
     # Test Code for your Blackjack class
-    players = [Player("Summer"), Player("Rick"), Player("Morty"), Player("Jerry")]
-    game = Blackjack(players)
-    print(game)
-    game.play_game()
-    print(game)
+    # players = [Player("Summer"), Player("Rick"), Player("Morty"), Player("Jerry")]
+    # game = Blackjack(players)
+    # print(game)
+    # game.play_game()
+    # print(game)
